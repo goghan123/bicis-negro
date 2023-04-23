@@ -1,0 +1,438 @@
+:root {
+  user-select: none;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 360px;
+  width: auto !important;
+  width: 360px;
+}
+
+.App-header {
+  background-color: #282c34;
+  background-size: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.horizontal-alligned {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center
+}
+
+.bar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.bar-toggler:active {
+  background-color: rgb(165, 112, 39);
+}
+
+.mini-logo {
+  height: 25px;
+  margin-left: 10px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.medium-logo {
+  height: 40px;
+  margin-left: 10px;
+  margin-right: 5px;
+  vertical-align: middle;
+}
+
+.full-right {
+  margin-right: 0;
+  justify-content: right;
+}
+
+.no-underlining {
+  text-decoration: none;
+}
+
+.left-oriented {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+}
+
+.right-oriented {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  align-items: center;
+}
+
+.horizontal-margin {
+  margin-bottom: 25px;
+}
+
+.total-local {
+  margin-left: 55px;
+}
+
+.medium-image {
+  vertical-align: middle;
+  align-content: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.broad-image {
+  vertical-align: middle;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.background {
+  background-color: #282c34;
+  background-size: cover;
+}
+
+.margins {
+  margin-left: 8vw;
+  margin-right: 8vw;
+}
+
+.custom-form {
+  justify-content: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.centered-image {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  vertical-align: middle;
+  align-content: center
+}
+
+.cart-set-of-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.side-margins {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.multiline {
+  white-space: pre-wrap;
+}
+
+.content-in-cart {
+  margin-left: 8%;
+  margin-right: 8%;
+  background-size: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-logo-social {
+  height: 35px;
+  margin-left: 10px;
+  margin-right: 5px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.fixed-now {
+  position: fixed;
+  margin-right: 5px;
+  right: 0;
+  bottom: 0;
+  z-index: 1100;
+}
+
+.social-networks-text {
+  font-size: 20px;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+  align-items: baseline;
+  text-align: end;
+  color: black;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-rows: 50px 50px;
+  grid-template-columns: 200px 50px;
+  margin-left: auto;
+  margin-bottom: 0;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 10px 10px 10px;
+}
+
+.tiniest-margin {
+  margin-right: .7vw;
+}
+
+.tiny-margin {
+  margin-right: 1vw;
+}
+
+.mid-margin {
+  margin-right: 1.5vw;
+}
+
+.bigger-margin {
+  margin-right: 2vw;
+}
+
+.margins-for-contact {
+  margin-left: 3vw;
+  margin-right: 3vw;
+}
+
+.grid-element {
+  padding: 5px 10px;
+}
+
+.btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.data {
+  border: 2px solid #000;
+  border-radius: 30px;
+  padding: 5px 5px 5px 5px;
+  justify-content: center;
+  background-color: rgb(40, 44, 52, .8);
+  backdrop-filter: blur(2px);
+  width: 200px;
+}
+
+.handy {
+  cursor: pointer;
+}
+
+button {
+  cursor: pointer;
+}
+
+.navbar-custom {
+  height: 74px;
+  vertical-align: center;
+  padding-top: 23px;
+  padding-bottom: 27px;
+  padding-right: 5px;
+  padding-left: 5px;
+  text-decoration: none;
+}
+
+.button-reactlink {
+  font-family: inherit;
+  text-decoration: none;
+  color: inherit;
+}
+
+.navbar-custom-list {
+  text-decoration: none;
+  line-height: 35px;
+}
+
+.button-reactlink:hover {
+  color: white;
+}
+
+
+.navbar-custom:hover {
+  background: linear-gradient(to bottom, #ffc107, #dfa804);
+}
+
+.brand-class {
+  color: black;
+  text-align: center;
+  align-self: center;
+  text-decoration: none;
+}
+
+.brand-container {
+  z-index: 10000;
+  width: 0;
+  margin-left: 50vw;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delivery-item {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.delivery-item>Button {
+  margin-left: 5px;
+}
+
+.hide-map {
+  display: none;
+}
+
+.relative-position {
+  position: relative;
+}
+
+.show-map {
+  max-width: 500px;
+  max-height: 500px;
+  width: 60%;
+  height: 60%;
+  z-index: 150;
+  position: absolute;
+}
+
+.background-map {
+  max-width: 500px;
+  max-height: 500px;
+  width: 60%;
+  height: 60%;
+  position: absolute;
+  z-index: 100;
+}
+
+.map-place {
+  width: 40vw;
+  height: auto;
+  min-height: 300px;
+}
+
+.delivery-data-and-maps {
+  display: inline-flex;
+  height: auto;
+}
+
+.delivery-radio {
+  position: absolute;
+  opacity: 0%;
+  z-index: 50;
+}
+
+.checkmark {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  outline: grey solid 2px;
+  background-color: inherit;
+  z-index: 40;
+}
+
+.checkmark-calling-animation {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  animation: calling 7s infinite;
+  z-index: 45;
+}
+
+@keyframes calling {
+  0% {
+    outline: grey solid 2px;
+    opacity: 100%;
+  }
+
+  70% {
+    outline: grey solid 2px;
+    opacity: 100%;
+  }
+
+  81% {
+    outline: grey solid 10px;
+    opacity: 0;
+  }
+
+  92% {
+    outline: grey solid 2px;
+    opacity: 0;
+  }
+
+  100% {
+    outline: grey solid 2px;
+    opacity: 100%;
+  }
+}
+
+.radio-container {
+  margin-top: 20px;
+}
+
+.checkmark-checked {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+  background-color: #ffc107;
+  z-index: 30;
+}
+
+.yellow-font {
+  color: #ffc107;
+}
+
+.position-not-absolute {
+  position: block;
+}
+
+.delivery-container {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 35px auto;
+  align-content: center;
+  width: 40vw;
+}
+
+.broader-container {
+  width: 95%;
+}
+
+Collapse {
+  display: flex;
+  flex-direction: column;
+}
+
+div.card-body>p {
+  color: black;
+}
+
+div.card-body>div {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.category-name {
+  color: white;
+  text-align: center;
+}
