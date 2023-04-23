@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/bicis-negro/static/css/main.5dbfe138.css",
+    "main.js": "/bicis-negro/static/js/main.dbb08daa.js",
+    "static/media/changuito-negro.svg": "/bicis-negro/static/media/changuito-negro.55a9bbabb27a7d5b082f1119371ced11.svg",
+    "static/media/logo-wpp.svg": "/bicis-negro/static/media/logo-wpp.6f0c3db458eb589025344d9d0542f98b.svg",
+    "static/media/logo-ig.svg": "/bicis-negro/static/media/logo-ig.89e48b887d63a9c7e8faf4f512f40237.svg",
+    "index.html": "/bicis-negro/index.html",
+    "main.5dbfe138.css.map": "/bicis-negro/static/css/main.5dbfe138.css.map",
+    "main.dbb08daa.js.map": "/bicis-negro/static/js/main.dbb08daa.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5dbfe138.css",
+    "static/js/main.dbb08daa.js"
+  ]
+}
