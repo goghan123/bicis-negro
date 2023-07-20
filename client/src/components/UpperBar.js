@@ -8,7 +8,8 @@ import carty from '../elements/images/changuito-negro.svg';
 import { TotalAmountContext } from '../elements/cartContent.js';
 import { useResponsiveTools } from '../elements/someFunctions.js';
 import { Link as ReactLink } from 'react-router-dom';
-import { FirstCategory, BikesSubcategories, ComponentsSubcategories, ApparelSubcategories, AccesoriesSubcategories } from './Sub-categories.js';
+import { Categories } from './Categories.js';
+import { accesoriesSubcategories, apparelSubcategories, bikesSubcategories, componentsSubcategories } from '../elements/subcategoriesList.js';
 
 export const UpperBar = () => {
     const { hideItems, itemsAreVisible, windowWidth } = useResponsiveTools();
@@ -19,28 +20,20 @@ export const UpperBar = () => {
     const [accesoriesStatus, setAccesoriesStatus] = useState(false);
     const [apparelsStatus, setApparelsStatus] = useState(false);
 
-    const openBikes = () => {
-        bikesStatus === true ? setBikesStatus(false) : setBikesStatus(true);
-    }
-    const openComponents = () => {
-        componentsStatus === true ? setComponentsStatus(false) : setComponentsStatus(true);
-    }
-    const openAccesories = () => {
-        accesoriesStatus === true ? setAccesoriesStatus(false) : setAccesoriesStatus(true);
-    }
-    const openApparels = () => {
-        apparelsStatus === true ? setApparelsStatus(false) : setApparelsStatus(true);
-    }
+    const openCloseBikes = () => setBikesStatus(bikesStatus ? false : true);
+    const openCloseComponents = () => setComponentsStatus(componentsStatus ? false : true);
+    const openCloseAccesories = () => setAccesoriesStatus(accesoriesStatus ? false : true);
+    const openCloseApparels = () => setApparelsStatus(apparelsStatus ? false : true);
 
     return (
         <div>
             {
                 windowWidth < 768 &&
                 <div className='brand-container'>
-                    <ReactLink to={process.env.REACT_APP_FOR_PATH + '/'} className='h4 brand-class text-dark'>Rafaela</ReactLink>
+                    <ReactLink to={process.env.REACT_APP_FOR_PATH + '/'} className='h4 brand-class text-dark'>BICI NEGRO</ReactLink>
                 </div>
             }
-            <Navbar color="warning" expand="md" fixed="top" light className="fw-bold py-2 navbar-class">
+            <Navbar expand="md" fixed="top" light className="fw-bold custom-navbar">
                 <NavbarToggler className='bar-toggler' onClick={hideItems} />
                 {
                     windowWidth < 768 &&
@@ -51,46 +44,44 @@ export const UpperBar = () => {
                         </ReactLink>
                     </NavbarBrand>
                 }
-                <Collapse navbar isOpen={itemsAreVisible}>
-                    <Nav className="me-auto" navbar>
+                <Collapse navbar isOpen={itemsAreVisible} className='nav-try'>
+                    <Nav className="me-auto upperBar-container" navbar>
                         {
                             windowWidth >= 768 &&
-                            <NavItem>
-                                <ReactLink className='text-dark navbar-custom' to={"/"}>
-                                    Marca del Negro
+                            <NavItem className='first-category-button enlace-principal navbar-custom'>
+                                <ReactLink to={"/"}>
+                                    BICI NEGRO
                                 </ReactLink>
                             </NavItem>
                         }
-                        <FirstCategory
-                            text={'Bicicletas'}
-                            openCategory={openBikes}
-                            categoryStatus={bikesStatus}
-                            secondCategories={<BikesSubcategories />}
-                        ></FirstCategory>
-                        <FirstCategory
-                            text={'Componentes'}
-                            openCategory={openComponents}
-                            categoryStatus={componentsStatus}
-                            secondCategories={<ComponentsSubcategories />}
-                        ></FirstCategory>
-                        <FirstCategory
-                            text={'Accesorios'}
-                            openCategory={openAccesories}
-                            categoryStatus={accesoriesStatus}
-                            secondCategories={<AccesoriesSubcategories />}
-                        ></FirstCategory>
-                        <FirstCategory
-                            text={'Aparejos'}
-                            openCategory={openApparels}
-                            categoryStatus={apparelsStatus}
-                            secondCategories={<ApparelSubcategories />}
-                        ></FirstCategory>
-                        {/*
-                        <ReactLink className={windowWidth >= 768 ? 'text-dark navbar-custom' : 'text-dark navbar-custom-list'} to={process.env.REACT_APP_FOR_PATH + '/products'}>
-                            Our products
-                        </ReactLink>
-                        */
-                        }
+                        <div className='inner-upperBar-container'>
+                            <div>
+                                <Categories
+                                    text={'Bicicletas'}
+                                    categoryStatus={bikesStatus}
+                                    openClose={openCloseBikes}
+                                    secondCategories={bikesSubcategories}
+                                ></Categories>
+                                <Categories
+                                    text={'Componentes'}
+                                    categoryStatus={componentsStatus}
+                                    openClose={openCloseComponents}
+                                    secondCategories={componentsSubcategories}
+                                ></Categories>
+                                <Categories
+                                    text={'Accesorios'}
+                                    categoryStatus={accesoriesStatus}
+                                    openClose={openCloseAccesories}
+                                    secondCategories={accesoriesSubcategories}
+                                ></Categories>
+                                <Categories
+                                    text={'Aparejos'}
+                                    categoryStatus={apparelsStatus}
+                                    openClose={openCloseApparels}
+                                    secondCategories={apparelSubcategories}
+                                ></Categories>
+                            </div>
+                        </div>
                     </Nav>
                     {itemsAreVisible && <hr></hr>}
                 </Collapse>

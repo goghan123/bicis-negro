@@ -1,46 +1,43 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles.css';
 import {
     Card, CardImg, CardBody, CardTitle, CardSubtitle, CardText, Button, Col, Row
 } from 'reactstrap';
-import { handcraftsList } from '../elements/handcraftsList.js';
+import { productsList } from '../elements/productsList.js';
 import {
     TotalAmountContext,
     CartContentContext
 } from '../elements/cartContent.js';
-import { passToCommaFormat } from '../elements/someFunctions.js';
-import { useResponsiveTools } from '../elements/someFunctions.js';
-import { SocialNetworks } from './SocialNetworks.js';
+import { useResponsiveTools, useAmountHandlers } from '../elements/someFunctions.js';
 import { Link as ReactLink } from 'react-router-dom';
 
-const rowsList = [handcraftsList];
+const rowsList = [productsList];
 
+/*
 const useNewValues = () => {
     const [currentKey, getKey] = useState(999);
     const newKey = () => getKey(currentKey + 1);
     return newKey;
 }
+*/
 
-const Handcraft = (props) => {
+const Product = (props) => {
+    /*
+    const productReference = JSON.parse(
+        sessionStorage.getItem('cart-content'))[props.refe];
+    const [localAmount, getAmount] = useState(productReference);
     const { carterTotalAmount, setTotalAmount } = useContext(TotalAmountContext);
     const { cartContent, setCartContent } = useContext(CartContentContext);
 
-    const handcraftReference = JSON.parse(
-        sessionStorage.getItem('cart-content'))[props.refe];
-    const [localAmount, getAmount] = useState(handcraftReference);
-
-    const getLocalPrice = (operation) => {
+   const getLocalPrice = (operation) => {
         const localPriceWithDot = Math.round((localAmount + operation) * Number(
             props.priceInt + '.' + props.priceDecimal
         ) * 100) / 100;
         return passToCommaFormat(localPriceWithDot);
     }
     const [localPrice, setLocalPrice] = useState(getLocalPrice(0));
-
-    const newKey = useNewValues();
-
-    const generalOperator = (operation) => {
+    const amountHandler = (operation) => {
         getAmount(localAmount + operation);
         setTotalAmount(carterTotalAmount + operation);
         sessionStorage.setItem('cart-amount', carterTotalAmount + operation);
@@ -51,11 +48,15 @@ const Handcraft = (props) => {
         setLocalPrice(getLocalPrice(operation));
     }
     const decreaseFunction = () => {
-        localAmount > 0 && generalOperator(-1);
+        localAmount > 0 && amountHandler(-1);
     }
     const increaseFunction = () => {
-        generalOperator(1);
+        amountHandler(1);
     }
+*/
+    const {
+        localPrice, localAmount, decreaseFunction, increaseFunction
+    } = useAmountHandlers(props.refe, props.priceInt, props.priceDecimal);
 
     return (
         <Card height='50px' width='50px'>
@@ -72,22 +73,27 @@ const Handcraft = (props) => {
                     tag="h6" >
                     ${props.priceInt},{
                         props.priceDecimal === 0 ? '00' : props.priceDecimal
-                    } per unit
+                    } por unidad
                 </CardSubtitle>
                 <CardText>
                     {props.description}
                 </CardText>
-                <div key={newKey} className="input-group">
-                    <Button onClick={decreaseFunction}>-</Button>
-                    <span className="input-group-text">{localAmount}</span>
-                    <Button onClick={increaseFunction}>+</Button>
-                    {
-                        localAmount ?
-                            <span className="input-group-text total-local">
-                                ${localPrice}
-                            </span> :
-                            <br></br>
-                    }
+                <div className='container-fluid' key='increase-decrease-buttons'>
+                    <Row>
+                        <Col className="horizontal-alligned">
+                            <div className="input-group mb-3 horizontal-alligned">
+                                <Button className='increase-decrease-buttons' onClick={decreaseFunction}>-</Button>
+                                <span className="input-group-text">{localAmount}</span>
+                                <Button className='increase-decrease-buttons' onClick={increaseFunction}>+</Button>
+                                {
+                                    !localAmount ||
+                                    <span className="input-group-text total-local">
+                                        ${localPrice}
+                                    </span>
+                                }
+                            </div>
+                        </Col>
+                    </Row>
                 </div>
             </CardBody>
         </Card>
@@ -107,9 +113,17 @@ const SetOfButtons = () => {
                 }
                 <Col sm={windowWidth >= 768 ? '4' : '12'} className="horizontal-alligned">
                     <div className="input-group mb-3 horizontal-alligned">
-                        <Button className='disabled' onClick={() => { }}>{windowWidth >= 1180 ? "Anterior" : "<"}</Button>
+                        <Button
+                            className={`disabled ${windowWidth >= 1180 && "complete"}`}
+                            onClick={() => { }}>
+                            {windowWidth >= 1180 ? "Anterior" : "<"}
+                        </Button>
                         <span className="input-group-text">{windowWidth >= 1180 ? "Página 1 de 1" : "1 de 1"}</span>
-                        <Button className='disabled' onClick={() => { }}>{windowWidth >= 1180 ? "Siguiente" : ">"}</Button>
+                        <Button
+                            className={`disabled ${windowWidth >= 1180 && "complete"}`}
+                            onClick={() => { }}>
+                            {windowWidth >= 1180 ? "Siguiente" : ">"}
+                        </Button>
                     </div>
                 </Col>
                 {
@@ -158,7 +172,7 @@ export const Products = (props) => {
                 <br></br>
                 <br></br>
                 <br></br>
-                <br></br>
+                <h1 className='routing-text'>{props.firstCategory} &gt; {props.text}</h1>
                 <h1 className='category-name'>{props.text}</h1>
                 <br></br>
                 <SetOfButtons />
@@ -168,20 +182,20 @@ export const Products = (props) => {
                 {rowsList.map((row) =>
                     <div className='container-fluid' key={row[0][4] + row[0][4]}>
                         <Row>
-                            {row.map((handcraft) => (
-                                <React.Fragment key={handcraft[4]}>
+                            {row.map((product) => (
+                                <React.Fragment key={product[4]}>
                                     <Col sm={windowWidth >= 768 ?
                                         '4' : windowWidth < 768 && windowWidth > 650 ?
                                             '6' : '12'}
                                         className='horizontal-margin'>
-                                        <Handcraft
+                                        <Product
                                             refe={references[refCounter++]}
-                                            title={handcraft[0]}
-                                            subtitle={handcraft[2]}
-                                            imageSource={handcraft[1]}
-                                            description={handcraft[3]}
-                                            priceInt={Number(handcraft[7])}
-                                            priceDecimal={Number(handcraft[8])} />
+                                            title={product[0]}
+                                            subtitle={product[2]}
+                                            imageSource={product[1]}
+                                            description={product[3]}
+                                            priceInt={Number(product[7])}
+                                            priceDecimal={Number(product[8])} />
                                     </Col>
                                 </React.Fragment>
                             ))}
@@ -194,7 +208,6 @@ export const Products = (props) => {
                 windowWidth < 768 &&
                 <br></br>
             }
-            <SocialNetworks />
         </div>
     )
 }

@@ -1,18 +1,68 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles.css';
 import {
-    Card, CardImg, CardBody, CardTitle, CardSubtitle, Col, Row
+    Card, CardImg, CardBody, CardTitle, CardSubtitle, Col, Row, Button
 } from 'reactstrap';
 import { TotalAmountContext, CartContentContext } from '../elements/cartContent.js';
-import { handcraftsList } from '../elements/handcraftsList.js';
-import { passToCommaFormat, useResponsiveTools } from '../elements/someFunctions.js';
-import { SocialNetworks } from './SocialNetworks.js';
+import { productsList } from '../elements/productsList.js';
+import { passToCommaFormat, useResponsiveTools, useAmountHandlers } from '../elements/someFunctions.js';
 import { Link as ReactLink } from 'react-router-dom';
 
+const PriceSetOfButtons = (props) => {
+
+    /*
+    const { carterTotalAmount, setTotalAmount } = useContext(TotalAmountContext);
+    const { cartContent, setCartContent } = useContext(CartContentContext);
+    const productReference = JSON.parse(
+        sessionStorage.getItem('cart-content'))[props.refe];
+    const [localAmount, getAmount] = useState(productReference);
+    const getLocalPrice = (operation) => {
+        const localPriceWithDot = Math.round((localAmount + operation) * Number(
+            props.priceInt + '.' + props.priceDecimal
+        ) * 100) / 100;
+        return passToCommaFormat(localPriceWithDot);
+    }
+    const [localPrice, setLocalPrice] = useState(getLocalPrice(0));
+
+    const amountHandler = (operation) => {
+        getAmount(localAmount + operation);
+        setTotalAmount(carterTotalAmount + operation);
+        sessionStorage.setItem('cart-amount', carterTotalAmount + operation);
+        let editableContentObject = JSON.parse(JSON.stringify(cartContent));
+        editableContentObject[props.refe] = localAmount + operation;
+        setCartContent(editableContentObject);
+        sessionStorage.setItem('cart-content', JSON.stringify(editableContentObject));
+        setLocalPrice(getLocalPrice(operation));
+    }
+    const decreaseFunction = () => localAmount > 0 && amountHandler(-1);
+    const increaseFunction = () => amountHandler(1);
+*/
+
+    const {
+        localPrice, localAmount, decreaseFunction, increaseFunction
+    } = useAmountHandlers(props.refe, props.priceInt, props.priceDecimal);
+
+    return (
+        <div className='container-fluid' key='increase-decrease-buttons'>
+            <Row>
+                <Col className="horizontal-alligned">
+                    <div className="input-group mb-3 horizontal-alligned">
+                        <Button className='increase-decrease-buttons' onClick={decreaseFunction}>-</Button>
+                        <span className="input-group-text">{localAmount}</span>
+                        <Button className='increase-decrease-buttons' onClick={increaseFunction}>+</Button>
+                        <span className="input-group-text total-local">${localPrice}</span>
+                    </div>
+                </Col>
+            </Row>
+        </div>
+    )
+}
+
+
 const Article = (props) => {
-    const [currentKey, getKey] = useState(9999);
-    const newKey = () => getKey(currentKey + 1);
+    // const [currentKey, getKey] = useState(9999);
+    //    const newKey = () => getKey(currentKey + 1);
     return (
         <div>
             <Card height='50px' width='50px'>
@@ -26,14 +76,24 @@ const Article = (props) => {
                     <CardSubtitle
                         className="mb-2 text-muted"
                         tag="h6" >
-                        ${props.priceInt},{props.priceDecimal} per unit
+                        ${props.priceInt},{props.priceDecimal} por unidad
                     </CardSubtitle>
-                    <div key={newKey} className="input-group mb-3">
-                        <span className="input-group-text">{props.amount}</span>
-                        <span className="input-group-text total-local">
-                            ${props.localPrice}
-                        </span>
-                    </div>
+                    <PriceSetOfButtons
+                        refe={props.refe}
+                        priceInt={props.priceInt}
+                        priceDecimal={props.priceDecimal}
+                        totalPrice={props.localPrice}
+                    ></PriceSetOfButtons>
+                    {
+                        /*
+                        <div key={newKey} className="input-group mb-3">
+                            <span className="input-group-text">{props.amount}</span>
+                            <span className="input-group-text total-local">
+                                ${props.localPrice}
+                            </span>
+                        </div>
+                        */
+                    }
                 </CardBody>
             </Card>
         </div>
@@ -57,6 +117,7 @@ const SetOfButtons = (props) => {
     )
 }
 
+
 const HaveContentInCart = (props) => {
     const priceToCommaFormat = (amount, priceInt, priceDecimal) => {
         const priceWithDot = typeof amount === 'undefined' ?
@@ -72,29 +133,29 @@ const HaveContentInCart = (props) => {
             <br></br>
             <br></br>
             <br></br>
-            <SetOfButtons key={0} totalPrice={priceToCommaFormat()} />
+            <SetOfButtons key={45347458} totalPrice={priceToCommaFormat()} />
             <br></br>
             {[props.content].map((row) =>
                 <div className='container-fluid' key={row[0][4] + row[0][4]}>
                     <Row>
-                        {row.map((handcraft) => (
-                            <React.Fragment key={handcraft[4]}>
+                        {row.map((product) => (
+                            <React.Fragment key={product[4]}>
                                 <Col sm={
                                     windowWidth > 1260 ? '3' :
                                         windowWidth <= 1260 && windowWidth > 660 ? '4' :
                                             windowWidth <= 660 && '6'}
                                     className='horizontal-margin'>
                                     <Article
-                                        refe={handcraft[5]}
-                                        title={handcraft[0]}
-                                        subtitle={handcraft[2]}
-                                        imageSource={handcraft[1]}
-                                        description={handcraft[3]}
-                                        amount={handcraft[6]}
-                                        priceInt={handcraft[7]}
-                                        priceDecimal={handcraft[8]}
+                                        refe={product[5]}
+                                        title={product[0]}
+                                        subtitle={product[2]}
+                                        imageSource={product[1]}
+                                        description={product[3]}
+                                        amount={product[6]}
+                                        priceInt={product[7]}
+                                        priceDecimal={product[8]}
                                         localPrice={priceToCommaFormat(
-                                            handcraft[6], handcraft[7], handcraft[8])} />
+                                            product[6], product[7], product[8])} />
                                 </Col>
                             </React.Fragment>
                         ))}
@@ -127,14 +188,14 @@ export const Cart = () => {
     ));
     const updatedCartAmounts = Object.values(cartContent);
     let value = 0;
-    const updatedHandcraftsList = handcraftsList.map((el) => [
+    const updatedProductsList = productsList.map((el) => [
         ...el.slice(0, 6),
         el[6] * 0 + updatedCartAmounts[value++],
         ...el.slice(7)
     ]);
 
-    const onlyHandcraftsInCart = updatedHandcraftsList.filter((el) => el[6] > 0);
-    const localPrices = onlyHandcraftsInCart.map((el) => el[6] * Number(el[7] + '.' + el[8]));
+    const onlyProductsInCart = updatedProductsList.filter((el) => el[6] > 0);
+    const localPrices = onlyProductsInCart.map((el) => el[6] * Number(el[7] + '.' + el[8]));
     const totalPrice = localPrices.reduce(
         (previousValue, currentValue) => previousValue + currentValue,
         0
@@ -143,13 +204,12 @@ export const Cart = () => {
     return (
         <div className='background'>
             {
-                onlyHandcraftsInCart.length > 0 ?
+                onlyProductsInCart.length > 0 ?
                     <HaveContentInCart
-                        content={onlyHandcraftsInCart}
+                        content={onlyProductsInCart}
                         totalPrice={totalPrice} /> :
                     <NoContentInCart />
             }
-            <SocialNetworks />
         </div>
     )
 }

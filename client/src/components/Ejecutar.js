@@ -2,23 +2,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import '../styles.css';
 import { Link as ReactLink } from 'react-router-dom';
-import { SocialNetworks } from './SocialNetworks.js';
-
-/*
-export const Ejecutar = () => {
-    return (
-        <div className='background'>
-            <ReactLink to={process.env.REACT_APP_FOR_PATH + '/carrito'} className='btn btn-secondary'>
-                Volver al carrito
-            </ReactLink>
-            <div className='App-header margins'>
-                <h1>Y acá iría el coso para comprar.</h1>
-            </div>
-            <SocialNetworks />
-        </div>
-    )
-}
-*/
 
 export const Ejecutar = () => {
     return (
@@ -29,7 +12,6 @@ export const Ejecutar = () => {
                     Volver al carrito
                 </ReactLink>
             </div>
-            <SocialNetworks />
         </div>
     )
 }

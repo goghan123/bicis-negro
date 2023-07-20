@@ -14,7 +14,7 @@ import { PageNotFound } from './components/PageNotFound.js';
 import { TotalAmountContext } from './elements/cartContent.js';
 import { CartContentContext } from './elements/cartContent.js';
 import { Cart } from './components/Cart.js';
-import { newCartContent } from './elements/handcraftsList.js';
+import { newCartContent } from './elements/productsList.js';
 import { listaDeRutas } from './components/Rutas.js';
 import { Ejecutar } from './components/Ejecutar.js';
 
@@ -41,7 +41,7 @@ class Main extends Component {
     render() {
         return (
             <div>
-                {document.title = 'Marca del Negro'}
+                {document.title = 'Bici Negro'}
                 <Router baseline='/'>
                     <div>
                         <UpperBar />
@@ -50,10 +50,11 @@ class Main extends Component {
                                 <Route index element={<Home />}></Route>
                                 {
                                     listaDeRutas.map((ruta) => (
-                                        <Route path={process.env.REACT_APP_FOR_PATH + ruta[0]} element={
+                                        <Route path={process.env.REACT_APP_FOR_PATH + ruta[1]} element={
                                             <Products
-                                                text={ruta[1]}
-                                                route={ruta[0]}
+                                                firstCategory={ruta[0]}
+                                                text={ruta[2]}
+                                                route={ruta[1]}
                                             />
                                         }></Route>
                                     ))
@@ -91,7 +92,8 @@ export const MainComponent = () => {
             <CartContentContext.Provider
                 value={setForContentChanging}>
                 <div>
-                    <Main />
+                    <Main
+                        key={98797686} />
                 </div>
             </CartContentContext.Provider>
         </TotalAmountContext.Provider>

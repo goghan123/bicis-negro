@@ -1,4 +1,0 @@
-Índice de reportes de error por código
-
-Error interno GH1: error en el archivo "CartContext.js" en la función "refGenerator()"que 
-probablemente se deba a una incorrecta generación de valores aleatorios.
